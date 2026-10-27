@@ -10,12 +10,12 @@ interface HeaderProps {
 }
 
 export function Header({ onClaimOffer }: HeaderProps) {
-  const handleScrollToOffer = (e: React.MouseEvent) => {
+  const handleScrollToPricing = (e: React.MouseEvent) => {
     e.preventDefault();
     if (onClaimOffer) {
       onClaimOffer();
     } else {
-      const el = document.getElementById('offer');
+      const el = document.getElementById('pricing');
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       }
@@ -25,27 +25,27 @@ export function Header({ onClaimOffer }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-[#080c14]/90 border-b border-white/[0.06] transition-all">
       <div className="max-w-6xl mx-auto px-6 h-18 sm:h-20 flex items-center justify-between">
-        {/* Brand Logo */}
+        {/* Brand Logo with <img src="/logo.png" alt="Ridge Creative Logo" /> */}
         <a 
           href="#" 
           className="flex items-center gap-3.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-lg py-1"
           aria-label="Ridge Creative Web Studio Home"
         >
-          {/* Logo Icon Box with Ridge / Frame Graphic */}
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg border border-slate-700/80 bg-slate-900/80 flex items-center justify-center text-slate-300 group-hover:border-emerald-500/50 group-hover:text-emerald-400 transition-colors shadow-sm">
-            <svg
-              className="w-5 h-5 sm:w-5.5 sm:h-5.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <polyline points="21 15 16 10 5 21" />
-            </svg>
+          {/* Logo container using <img src="/logo.png" alt="Ridge Creative Logo" /> */}
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-slate-700/80 bg-slate-900 overflow-hidden flex items-center justify-center group-hover:border-emerald-500/50 transition-colors shadow-sm shrink-0">
+            <img 
+              src="/logo.png" 
+              alt="Ridge Creative Logo" 
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                // Graceful fallback if user removes or replaces logo
+                const target = e.currentTarget;
+                target.style.display = 'none';
+                if (target.parentElement) {
+                  target.parentElement.innerHTML = '<span class="text-xs font-bold text-emerald-400">RC</span>';
+                }
+              }}
+            />
           </div>
 
           {/* Brand Name Typography */}
@@ -59,11 +59,11 @@ export function Header({ onClaimOffer }: HeaderProps) {
           </div>
         </a>
 
-        {/* Claim Offer Action */}
+        {/* Claim Offer Action: Smoothly SCROLL DOWN to the pricing section (Do NOT redirect to Instagram) */}
         <div className="flex items-center gap-3">
           <a
-            href="#offer"
-            onClick={handleScrollToOffer}
+            href="#pricing"
+            onClick={handleScrollToPricing}
             className="bg-[#10b981] hover:bg-[#0da371] text-[#080c14] font-bold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-lg transition-all glow-emerald-subtle whitespace-nowrap cursor-pointer active:scale-95"
           >
             Claim Offer

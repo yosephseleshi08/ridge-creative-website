@@ -80,10 +80,10 @@ export function HowItWorks() {
           })}
         </div>
 
-        {/* Big CTA Button */}
+        {/* Big CTA Button linking to https://the-plannerz-place.ridgewebstudio.com/ */}
         <div className="mt-12 flex justify-center">
           <a
-            href="https://final-client-closer.vercel.app/"
+            href="https://the-plannerz-place.ridgewebstudio.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-[#10b981] hover:bg-[#0da371] text-[#080c14] font-bold text-base px-8 py-3.5 rounded-xl inline-flex items-center justify-center transition-all glow-emerald shadow-lg cursor-pointer active:scale-98"

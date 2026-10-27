@@ -44,11 +44,11 @@ export function SocialProof() {
               Founder & Lead Designer at Ridge Creative Web Studio. I’ve built 7+ restaurant websites that help owners keep 100% of their online revenue.
             </p>
 
-            {/* Real Social Icons Row */}
+            {/* Real Social Icons Row with exact requested URLs */}
             <div className="flex items-center gap-3">
               {/* Instagram */}
               <a
-                href="https://instagram.com/ridge_creative_"
+                href="https://www.instagram.com/ridge_creative_/?hl=en"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow Ridge Creative on Instagram"
@@ -59,7 +59,7 @@ export function SocialProof() {
 
               {/* Facebook */}
               <a
-                href="https://facebook.com/ridgecreative"
+                href="https://web.facebook.com/profile.php?id=61563444573166"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Connect with Ridge Creative on Facebook"
@@ -78,7 +78,7 @@ export function SocialProof() {
               </a>
             </div>
 
-            {/* Direct contact info display for transparency */}
+            {/* Direct contact info display */}
             <div className="mt-4">
               <a 
                 href="mailto:yoseph@ridgewebstudio.com" 
