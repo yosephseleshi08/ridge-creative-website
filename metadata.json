@@ -1,0 +1,6 @@
+{
+  "name": "Ridge Creative Web Studio",
+  "description": "Commission-free direct ordering websites for local restaurants. Live in 48 hours. $0 setup.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

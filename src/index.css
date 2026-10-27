@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-outfit: 'Outfit', sans-serif;
+    --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-inter);
+    background-color: #080c14;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-outfit);
+  }
+}
+
+.font-outfit {
+  font-family: 'Outfit', sans-serif;
+}
+
+.font-inter {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Button Glow Effects */
+.glow-emerald {
+  box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.4);
+  transition: all 0.25s ease;
+}
+
+.glow-emerald:hover {
+  box-shadow: 0 0 35px 2px rgba(16, 185, 129, 0.65);
+  transform: translateY(-1px);
+}
+
+.glow-emerald-subtle {
+  box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.25);
+  transition: all 0.2s ease;
+}
+
+.glow-emerald-subtle:hover {
+  box-shadow: 0 0 25px 0px rgba(16, 185, 129, 0.45);
+}
+
+/* Pulsing Badge Keyframes */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.5);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+    box-shadow: 0 0 12px 4px rgba(245, 158, 11, 0.3);
+  }
+}
+
+.animate-spot-pulse {
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+/* Subtle dot grid background */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
