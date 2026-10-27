@@ -29,7 +29,7 @@ export function HowItWorks() {
   ];
 
   return (
-    <section className="py-16 sm:py-24 border-t border-slate-800/80">
+    <section className="py-16 sm:py-24 border-t border-slate-800/80 font-dmsans">
       <div className="max-w-6xl mx-auto px-6 text-center">
         
         {/* Kicker */}
@@ -41,7 +41,7 @@ export function HowItWorks() {
         </div>
 
         {/* Section Headline */}
-        <h2 className="font-outfit text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-12 text-balance">
+        <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-12 text-balance">
           How It Works (3 Simple Steps)
         </h2>
 
@@ -60,18 +60,18 @@ export function HowItWorks() {
                     <div className="w-10 h-10 rounded-xl bg-emerald-950/40 border border-emerald-500/20 flex items-center justify-center text-[#10b981] group-hover:bg-[#10b981] group-hover:text-[#080c14] transition-colors">
                       <Icon className="w-5 h-5 stroke-[2]" />
                     </div>
-                    <span className="font-outfit font-bold text-2xl text-slate-500 tabular-nums">
+                    <span className="font-playfair font-bold text-2xl text-slate-500 tabular-nums">
                       {item.step}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-outfit font-bold text-xl text-white mb-2 group-hover:text-emerald-300 transition-colors">
+                  <h3 className="font-playfair font-bold text-xl text-white mb-2 group-hover:text-emerald-300 transition-colors">
                     {item.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-slate-400 text-sm leading-relaxed">
+                  <p className="text-slate-400 text-sm leading-relaxed font-dmsans">
                     {item.description}
                   </p>
                 </div>

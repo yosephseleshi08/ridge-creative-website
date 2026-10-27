@@ -23,8 +23,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080c14] text-slate-100 selection:bg-emerald-500 selection:text-slate-950 flex flex-col font-inter">
-      {/* Sticky Navigation Header with <img src="/logo.png" /> & Claim Offer -> #pricing */}
+    <div className="min-h-screen bg-[#080c14] text-slate-100 selection:bg-emerald-500 selection:text-slate-950 flex flex-col font-dmsans">
+      {/* Sticky Navigation Header with Claim Offer -> #pricing */}
       <Header onClaimOffer={scrollToPricing} />
 
       {/* Main Content Flow */}

@@ -2,28 +2,38 @@
 
 @layer base {
   :root {
-    --font-outfit: 'Outfit', sans-serif;
-    --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
   }
 
   body {
-    font-family: var(--font-inter);
+    font-family: var(--font-body);
     background-color: #080c14;
     color: #f1f5f9;
     overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-outfit);
+    font-family: var(--font-heading);
+    letter-spacing: -0.015em;
   }
 }
 
+.font-playfair {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-dmsans {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Fallback aliases if any existing classes use font-outfit */
 .font-outfit {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Playfair Display', Georgia, serif;
 }
 
 .font-inter {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
 }
 
 /* Button Glow Effects */
@@ -62,11 +72,4 @@
 
 .animate-spot-pulse {
   animation: pulseGlow 2.5s infinite ease-in-out;
-}
-
-/* Subtle dot grid background */
-.bg-grid-pattern {
-  background-size: 32px 32px;
-  background-image: 
-    radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
 }

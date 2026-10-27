@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   UtensilsCrossed, 
   Calculator, 
@@ -12,11 +12,9 @@ import {
   Minus, 
   ShoppingBag, 
   CheckCircle2, 
-  ArrowRight,
-  Sparkles,
-  PhoneCall,
   Clock,
-  Users
+  Users,
+  Check
 } from 'lucide-react';
 
 interface CartItem {
@@ -40,7 +38,10 @@ export function InteractivePhoneMockup() {
     { id: '1', name: 'Margherita Pizza', price: 18, qty: 1 }
   ]);
   const [showCartDrawer, setShowCartDrawer] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const toastTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Issue 1: Cart should NOT automatically open on Add. Show toast notification instead.
   const addToCart = (item: typeof menuItems[0]) => {
     setCart(prev => {
       const existing = prev.find(i => i.id === item.id);
@@ -49,7 +50,15 @@ export function InteractivePhoneMockup() {
       }
       return [...prev, { id: item.id, name: item.name, price: item.price, qty: 1 }];
     });
-    setShowCartDrawer(true);
+
+    // Show toast notification
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+    }
+    setToastMessage('Item added to bag.');
+    toastTimeoutRef.current = setTimeout(() => {
+      setToastMessage(null);
+    }, 2200);
   };
 
   const updateQty = (id: string, delta: number) => {
@@ -69,8 +78,6 @@ export function InteractivePhoneMockup() {
   const [orderAmount, setOrderAmount] = useState<number>(50);
   const doorDashFee = Math.round(orderAmount * 0.30);
   const restaurantKeeps = orderAmount - doorDashFee;
-  const ridgeTakes = 0;
-  const annualSaved = Math.round((orderAmount * 0.30) * 120); // 120 orders/month estimate
 
   // Reserve Tab State
   const [partySize, setPartySize] = useState('2 Guests');
@@ -87,7 +94,7 @@ export function InteractivePhoneMockup() {
   };
 
   return (
-    <div className="relative w-full max-w-[340px] sm:max-w-[360px] mx-auto select-none">
+    <div className="relative w-full max-w-[340px] sm:max-w-[360px] mx-auto select-none font-dmsans">
       
       {/* Decorative Outer Glow */}
       <div 
@@ -107,11 +114,21 @@ export function InteractivePhoneMockup() {
         {/* Screen Bezel */}
         <div className="relative bg-[#faf8f5] text-stone-900 rounded-[32px] pt-8 pb-4 px-3.5 h-[530px] flex flex-col justify-between overflow-hidden shadow-inner">
           
+          {/* Floating Toast Notification inside phone */}
+          {toastMessage && (
+            <div className="absolute top-10 left-1/2 -translate-x-1/2 z-40 bg-stone-900/95 text-white text-[11px] font-semibold py-1.5 px-3 rounded-full shadow-lg flex items-center gap-1.5 backdrop-blur-sm border border-emerald-500/40 animate-in fade-in slide-in-from-top-2 duration-200">
+              <span className="w-3.5 h-3.5 rounded-full bg-emerald-500 text-stone-950 flex items-center justify-center text-[9px] font-bold">
+                ✓
+              </span>
+              <span>{toastMessage}</span>
+            </div>
+          )}
+
           {/* Top Mini Brand Bar */}
           <div className="border-b border-stone-200 pb-2 mb-2 flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span className="font-outfit font-extrabold text-xs text-stone-900 tracking-tight">
+              <span className="font-playfair font-bold text-xs text-stone-900 tracking-tight">
                 THE LOCAL TABLE
               </span>
             </div>
@@ -124,7 +141,7 @@ export function InteractivePhoneMockup() {
           <div className="grid grid-cols-3 gap-1 bg-stone-200/80 p-1 rounded-xl mb-3 text-xs font-semibold">
             <button
               onClick={() => setActiveTab('menu')}
-              className={`py-1.5 px-2 rounded-lg flex items-center justify-center gap-1 transition-all ${
+              className={`py-1.5 px-2 rounded-lg flex items-center justify-center gap-1 transition-all cursor-pointer ${
                 activeTab === 'menu' 
                   ? 'bg-white text-stone-950 shadow-sm' 
                   : 'text-stone-600 hover:text-stone-900'
@@ -136,7 +153,7 @@ export function InteractivePhoneMockup() {
 
             <button
               onClick={() => setActiveTab('calc')}
-              className={`py-1.5 px-2 rounded-lg flex items-center justify-center gap-1 transition-all ${
+              className={`py-1.5 px-2 rounded-lg flex items-center justify-center gap-1 transition-all cursor-pointer ${
                 activeTab === 'calc' 
                   ? 'bg-white text-stone-950 shadow-sm' 
                   : 'text-stone-600 hover:text-stone-900'
@@ -148,7 +165,7 @@ export function InteractivePhoneMockup() {
 
             <button
               onClick={() => setActiveTab('reserve')}
-              className={`py-1.5 px-2 rounded-lg flex items-center justify-center gap-1 transition-all ${
+              className={`py-1.5 px-2 rounded-lg flex items-center justify-center gap-1 transition-all cursor-pointer ${
                 activeTab === 'reserve' 
                   ? 'bg-white text-stone-950 shadow-sm' 
                   : 'text-stone-600 hover:text-stone-900'
@@ -175,7 +192,7 @@ export function InteractivePhoneMockup() {
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <h4 className="font-outfit font-bold text-xs text-stone-900">
+                        <h4 className="font-playfair font-bold text-xs text-stone-900">
                           {item.name}
                         </h4>
                         <span className="text-[9px] bg-stone-100 text-stone-600 px-1.5 py-0.2 rounded font-medium">
@@ -193,7 +210,8 @@ export function InteractivePhoneMockup() {
                       </span>
                       <button
                         onClick={() => addToCart(item)}
-                        className="mt-1 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1 shadow-xs transition"
+                        className="mt-1 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-[10px] font-bold px-2.5 py-1 rounded-md flex items-center gap-1 shadow-xs transition cursor-pointer"
+                        aria-label={`Add ${item.name} to bag`}
                       >
                         <Plus className="w-2.5 h-2.5" />
                         <span>Add</span>
@@ -206,65 +224,78 @@ export function InteractivePhoneMockup() {
               {/* Cart Drawer Bar */}
               <div className="mt-3 bg-stone-900 text-white rounded-xl p-2.5 shadow-md flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs">
+                  <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs relative">
                     <ShoppingBag className="w-3.5 h-3.5" />
+                    {cartItemCount > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-emerald-500 text-stone-950 font-bold rounded-full w-3.5 h-3.5 flex items-center justify-center text-[9px] font-mono">
+                        {cartItemCount}
+                      </span>
+                    )}
                   </div>
                   <div>
                     <div className="text-[11px] font-bold leading-tight">
                       {cartItemCount} {cartItemCount === 1 ? 'item' : 'items'} in Bag
                     </div>
                     <div className="text-[10px] text-emerald-400 font-mono font-bold leading-tight">
-                      Total: ${cartTotal} (0% DoorDash Fee)
+                      Total: ${cartTotal} (0% Fee)
                     </div>
                   </div>
                 </div>
 
+                {/* View Bag ONLY opens the cart slide-over */}
                 <button 
                   onClick={() => setShowCartDrawer(!showCartDrawer)}
-                  className="bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-[11px] font-bold px-2.5 py-1 rounded-lg transition"
+                  className="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-stone-950 text-[11px] font-bold px-3 py-1.5 rounded-lg transition cursor-pointer shadow-sm"
                 >
-                  {showCartDrawer ? 'Close' : 'View Bag'}
+                  {showCartDrawer ? 'Close Bag' : 'View Bag'}
                 </button>
               </div>
 
-              {/* Slide-over cart breakdown */}
+              {/* Slide-over cart breakdown (Only opens on 'View Bag' click) */}
               {showCartDrawer && (
-                <div className="absolute inset-x-0 bottom-0 top-12 bg-white/95 backdrop-blur-md rounded-2xl border border-stone-200 p-3 shadow-xl z-20 flex flex-col justify-between">
+                <div className="absolute inset-x-0 bottom-0 top-10 bg-white/98 backdrop-blur-md rounded-2xl border border-stone-200 p-3.5 shadow-2xl z-20 flex flex-col justify-between animate-in fade-in slide-in-from-bottom-4 duration-200">
                   <div>
-                    <div className="flex items-center justify-between border-b border-stone-200 pb-1.5 mb-2">
-                      <span className="font-outfit font-bold text-xs text-stone-900">Your Direct Bag</span>
+                    <div className="flex items-center justify-between border-b border-stone-200 pb-2 mb-2">
+                      <span className="font-playfair font-bold text-sm text-stone-900">Your Direct Bag</span>
                       <button 
                         onClick={() => setShowCartDrawer(false)}
-                        className="text-stone-400 hover:text-stone-700 text-xs font-bold"
+                        className="text-stone-400 hover:text-stone-700 text-sm font-bold p-1 cursor-pointer"
+                        aria-label="Close bag"
                       >
                         ✕
                       </button>
                     </div>
 
-                    <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1">
-                      {cart.map(item => (
-                        <div key={item.id} className="flex items-center justify-between text-xs py-1 border-b border-stone-100">
-                          <div>
-                            <div className="font-medium text-stone-900 text-[11px]">{item.name}</div>
-                            <div className="text-[10px] text-stone-500 font-mono">${item.price} each</div>
+                    <div className="space-y-1.5 max-h-48 overflow-y-auto pr-1">
+                      {cart.length === 0 ? (
+                        <p className="text-stone-500 text-xs py-4 text-center">Your bag is empty.</p>
+                      ) : (
+                        cart.map(item => (
+                          <div key={item.id} className="flex items-center justify-between text-xs py-1.5 border-b border-stone-100">
+                            <div>
+                              <div className="font-medium text-stone-900 text-[11px]">{item.name}</div>
+                              <div className="text-[10px] text-stone-500 font-mono">${item.price} each</div>
+                            </div>
+                            <div className="flex items-center gap-1.5 bg-stone-100 rounded-lg p-0.5">
+                              <button 
+                                onClick={() => updateQty(item.id, -1)}
+                                className="w-5 h-5 flex items-center justify-center text-stone-600 hover:bg-white rounded cursor-pointer"
+                                aria-label="Decrease quantity"
+                              >
+                                <Minus className="w-2.5 h-2.5" />
+                              </button>
+                              <span className="font-mono text-xs font-bold px-1">{item.qty}</span>
+                              <button 
+                                onClick={() => updateQty(item.id, 1)}
+                                className="w-5 h-5 flex items-center justify-center text-stone-600 hover:bg-white rounded cursor-pointer"
+                                aria-label="Increase quantity"
+                              >
+                                <Plus className="w-2.5 h-2.5" />
+                              </button>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-1.5 bg-stone-100 rounded-lg p-0.5">
-                            <button 
-                              onClick={() => updateQty(item.id, -1)}
-                              className="w-5 h-5 flex items-center justify-center text-stone-600 hover:bg-white rounded"
-                            >
-                              <Minus className="w-2.5 h-2.5" />
-                            </button>
-                            <span className="font-mono text-xs font-bold px-1">{item.qty}</span>
-                            <button 
-                              onClick={() => updateQty(item.id, 1)}
-                              className="w-5 h-5 flex items-center justify-center text-stone-600 hover:bg-white rounded"
-                            >
-                              <Plus className="w-2.5 h-2.5" />
-                            </button>
-                          </div>
-                        </div>
-                      ))}
+                        ))
+                      )}
                     </div>
                   </div>
 
@@ -279,7 +310,7 @@ export function InteractivePhoneMockup() {
                     </div>
                     <button 
                       onClick={() => alert("Mockup Demo: On your live custom site, customers pay directly to your Stripe/Square with $0 commission!")}
-                      className="w-full bg-[#10b981] hover:bg-[#0da371] text-stone-950 font-bold text-xs py-2 rounded-xl text-center shadow-sm"
+                      className="w-full bg-[#10b981] hover:bg-[#0da371] text-stone-950 font-bold text-xs py-2 rounded-xl text-center shadow-sm cursor-pointer"
                     >
                       Checkout (Keep 100%)
                     </button>
@@ -307,7 +338,7 @@ export function InteractivePhoneMockup() {
                     onChange={(e) => setOrderAmount(Number(e.target.value))}
                     className="w-full accent-emerald-600 h-1.5 bg-stone-200 rounded-lg cursor-pointer"
                   />
-                  <span className="font-outfit font-extrabold text-sm text-stone-900 font-mono min-w-10 text-right">
+                  <span className="font-playfair font-extrabold text-sm text-stone-900 font-mono min-w-10 text-right">
                     ${orderAmount}
                   </span>
                 </div>
@@ -320,7 +351,7 @@ export function InteractivePhoneMockup() {
                     <div className="text-[10px] font-bold uppercase tracking-wider text-red-700">DoorDash Fee (30%)</div>
                     <div className="text-xs text-stone-600">DoorDash takes:</div>
                   </div>
-                  <div className="font-outfit font-extrabold text-base text-red-600 font-mono">
+                  <div className="font-playfair font-extrabold text-base text-red-600 font-mono">
                     -${doorDashFee}
                   </div>
                 </div>
@@ -330,7 +361,7 @@ export function InteractivePhoneMockup() {
                     <div className="text-[10px] font-bold uppercase tracking-wider text-emerald-800">Ridge Creative (0%)</div>
                     <div className="text-xs text-stone-600">Ridge Creative takes:</div>
                   </div>
-                  <div className="font-outfit font-extrabold text-base text-emerald-700 font-mono">
+                  <div className="font-playfair font-extrabold text-base text-emerald-700 font-mono">
                     $0
                   </div>
                 </div>
@@ -340,7 +371,7 @@ export function InteractivePhoneMockup() {
                   <div className="text-[10px] uppercase tracking-widest text-emerald-400 font-bold mb-0.5">
                     Your Direct Profit Per Order
                   </div>
-                  <div className="font-outfit font-black text-2xl text-emerald-400 font-mono">
+                  <div className="font-playfair font-black text-2xl text-emerald-400 font-mono">
                     You save ${doorDashFee}
                   </div>
                   <div className="text-[10px] text-stone-400 mt-1">
@@ -363,7 +394,7 @@ export function InteractivePhoneMockup() {
                   <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
-                  <h4 className="font-outfit font-bold text-sm text-stone-900">
+                  <h4 className="font-playfair font-bold text-sm text-stone-900">
                     Table Reserved!
                   </h4>
                   <p className="text-[11px] text-stone-600">
@@ -387,7 +418,7 @@ export function InteractivePhoneMockup() {
                     <select
                       value={reserveDate}
                       onChange={(e) => setReserveDate(e.target.value)}
-                      className="w-full bg-white border border-stone-300 rounded-lg px-2 py-1.5 text-xs text-stone-900 focus:outline-none focus:border-emerald-500"
+                      className="w-full bg-white border border-stone-300 rounded-lg px-2 py-1.5 text-xs text-stone-900 focus:outline-none focus:border-emerald-500 cursor-pointer"
                     >
                       <option value="Today">Tonight (Oct 27)</option>
                       <option value="Tomorrow">Tomorrow (Oct 28)</option>
@@ -405,7 +436,7 @@ export function InteractivePhoneMockup() {
                       <select
                         value={reserveTime}
                         onChange={(e) => setReserveTime(e.target.value)}
-                        className="w-full bg-white border border-stone-300 rounded-lg px-2 py-1.5 text-xs text-stone-900 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-white border border-stone-300 rounded-lg px-2 py-1.5 text-xs text-stone-900 focus:outline-none focus:border-emerald-500 cursor-pointer"
                       >
                         <option value="5:30 PM">5:30 PM</option>
                         <option value="6:00 PM">6:00 PM</option>
@@ -424,7 +455,7 @@ export function InteractivePhoneMockup() {
                       <select
                         value={partySize}
                         onChange={(e) => setPartySize(e.target.value)}
-                        className="w-full bg-white border border-stone-300 rounded-lg px-2 py-1.5 text-xs text-stone-900 focus:outline-none focus:border-emerald-500"
+                        className="w-full bg-white border border-stone-300 rounded-lg px-2 py-1.5 text-xs text-stone-900 focus:outline-none focus:border-emerald-500 cursor-pointer"
                       >
                         <option value="2 Guests">2 Guests</option>
                         <option value="4 Guests">4 Guests</option>
@@ -440,7 +471,7 @@ export function InteractivePhoneMockup() {
 
                   <button
                     type="submit"
-                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2 rounded-xl transition shadow-sm"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-2 rounded-xl transition shadow-sm cursor-pointer"
                   >
                     Confirm Table Reservation
                   </button>
@@ -457,11 +488,11 @@ export function InteractivePhoneMockup() {
 
       {/* Floating Badge (0% Commission. Always. Keep what you earn.) */}
       <div className="absolute -bottom-5 -right-2 sm:-bottom-6 sm:-right-4 z-20 bg-[#0c1a17]/95 border border-emerald-500/50 rounded-xl px-4 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.6)] backdrop-blur-md flex items-center gap-3">
-        <span className="font-outfit font-extrabold text-3xl sm:text-4xl text-[#10b981] leading-none drop-shadow-[0_0_12px_rgba(16,185,129,0.4)]">
+        <span className="font-playfair font-extrabold text-3xl sm:text-4xl text-[#10b981] leading-none drop-shadow-[0_0_12px_rgba(16,185,129,0.4)]">
           0%
         </span>
         <div className="flex flex-col text-left">
-          <span className="font-outfit font-bold text-xs sm:text-sm text-white leading-tight">
+          <span className="font-playfair font-bold text-xs sm:text-sm text-white leading-tight">
             Commission. Always.
           </span>
           <span className="text-[10px] sm:text-xs text-emerald-400 font-medium leading-tight">

@@ -22,7 +22,7 @@ export function ProblemSolutionSection() {
   ];
 
   return (
-    <section className="py-16 sm:py-24 border-t border-slate-800/80">
+    <section className="py-16 sm:py-24 border-t border-slate-800/80 font-dmsans">
       <div className="max-w-6xl mx-auto px-6">
         
         {/* Kicker Tag */}
@@ -35,7 +35,7 @@ export function ProblemSolutionSection() {
 
         {/* Section Headline */}
         <div className="max-w-3xl mb-12">
-          <h2 className="font-outfit text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.15] text-balance">
+          <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.15] text-balance">
             The Outdated Status Quo is Costing You Money.
           </h2>
           <p className="text-slate-400 text-base sm:text-lg mt-3">
@@ -52,7 +52,7 @@ export function ProblemSolutionSection() {
               <span className="w-6 h-6 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center text-xs font-bold">
                 ✕
               </span>
-              <h3 className="font-outfit font-bold text-lg sm:text-xl text-red-200">
+              <h3 className="font-playfair font-bold text-lg sm:text-xl text-red-200">
                 The Outdated Status Quo
               </h3>
             </div>
@@ -64,7 +64,7 @@ export function ProblemSolutionSection() {
                     <X className="w-3.5 h-3.5 text-red-400 stroke-[3]" />
                   </div>
                   <div>
-                    <h4 className="font-outfit font-bold text-sm sm:text-base text-slate-100">
+                    <h4 className="font-playfair font-bold text-sm sm:text-base text-slate-100">
                       {item.title}
                     </h4>
                     <p className="text-xs sm:text-sm text-slate-400 mt-0.5 leading-relaxed">
@@ -82,7 +82,7 @@ export function ProblemSolutionSection() {
               <span className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold">
                 ✓
               </span>
-              <h3 className="font-outfit font-bold text-lg sm:text-xl text-emerald-300">
+              <h3 className="font-playfair font-bold text-lg sm:text-xl text-emerald-300">
                 The Ridge Creative Solution
               </h3>
             </div>
@@ -94,7 +94,7 @@ export function ProblemSolutionSection() {
                     <Check className="w-3.5 h-3.5 text-emerald-400 stroke-[3]" />
                   </div>
                   <div>
-                    <h4 className="font-outfit font-bold text-sm sm:text-base text-white">
+                    <h4 className="font-playfair font-bold text-sm sm:text-base text-white">
                       {item.title}
                     </h4>
                     <p className="text-xs sm:text-sm text-slate-300/80 mt-0.5 leading-relaxed">
@@ -138,7 +138,7 @@ export function ProblemSolutionSection() {
           {/* Numerical comparison figures */}
           <div className="flex items-center justify-between pt-2">
             <div>
-              <div className="font-outfit font-extrabold text-3xl sm:text-4xl text-white tracking-tight tabular-nums">
+              <div className="font-playfair font-extrabold text-3xl sm:text-4xl text-white tracking-tight tabular-nums">
                 $35
               </div>
               <div className="text-xs text-slate-400 font-medium mt-1">
@@ -147,7 +147,7 @@ export function ProblemSolutionSection() {
             </div>
 
             <div className="text-right">
-              <div className="font-outfit font-extrabold text-3xl sm:text-4xl text-[#f59e0b] tracking-tight tabular-nums">
+              <div className="font-playfair font-extrabold text-3xl sm:text-4xl text-[#f59e0b] tracking-tight tabular-nums">
                 -$15
               </div>
               <div className="text-xs text-slate-400 font-medium mt-1">

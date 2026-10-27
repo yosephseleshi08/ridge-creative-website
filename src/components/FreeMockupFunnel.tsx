@@ -22,7 +22,7 @@ export function FreeMockupFunnel() {
   };
 
   return (
-    <section className="py-20 sm:py-28 bg-stone-50 text-stone-900 relative overflow-hidden">
+    <section className="py-20 sm:py-28 bg-stone-50 text-stone-900 relative overflow-hidden font-dmsans">
       {/* Decorative subtle texture accents */}
       <div 
         className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" 
@@ -42,12 +42,12 @@ export function FreeMockupFunnel() {
         </div>
 
         {/* Section Headline */}
-        <h2 className="font-outfit text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-950 tracking-tight leading-[1.1] mb-4 text-balance">
+        <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-extrabold text-stone-950 tracking-tight leading-[1.1] mb-4 text-balance">
           Get a Free Custom Mockup in 48 Hours.
         </h2>
 
         {/* Subtitle */}
-        <p className="text-stone-600 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-stone-600 text-base sm:text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-dmsans">
           I will build a custom, interactive demo for your restaurant so you can test drive direct ordering before spending a single penny.
         </p>
 
@@ -58,7 +58,7 @@ export function FreeMockupFunnel() {
               <CheckCircle2 className="w-8 h-8" />
             </div>
             
-            <h3 className="font-outfit font-extrabold text-2xl text-stone-900">
+            <h3 className="font-playfair font-extrabold text-2xl text-stone-900">
               Mockup Request Received!
             </h3>
 
@@ -72,7 +72,7 @@ export function FreeMockupFunnel() {
                   setSubmitted(false);
                   setLinkInput('');
                 }}
-                className="text-xs text-stone-500 hover:text-stone-800 underline font-medium"
+                className="text-xs text-stone-500 hover:text-stone-800 underline font-medium cursor-pointer"
               >
                 Submit another restaurant link
               </button>

@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Check, Sparkles, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 
 export function PricingGrid() {
   const plans = [
@@ -76,7 +76,7 @@ export function PricingGrid() {
   ];
 
   return (
-    <section id="pricing" className="py-20 sm:py-28 max-w-6xl mx-auto px-6 scroll-mt-24">
+    <section id="pricing" className="py-20 sm:py-28 max-w-6xl mx-auto px-6 scroll-mt-24 font-dmsans">
       
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-16">
@@ -87,7 +87,7 @@ export function PricingGrid() {
           </span>
         </div>
 
-        <h2 className="font-outfit text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4 text-balance">
+        <h2 className="font-playfair text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4 text-balance">
           Simple, Commission-Free Pricing.
         </h2>
 
@@ -112,7 +112,7 @@ export function PricingGrid() {
               </div>
 
               {/* Plan Name & Strikethrough */}
-              <h3 className="font-outfit font-extrabold text-2xl tracking-tight mb-1">
+              <h3 className="font-playfair font-extrabold text-2xl tracking-tight mb-1">
                 {plan.name}
               </h3>
               <p className={`text-xs font-medium line-through ${plan.isPopular ? 'text-stone-400' : 'text-slate-500'}`}>
@@ -121,7 +121,7 @@ export function PricingGrid() {
 
               {/* Price display */}
               <div className="my-5 flex items-baseline gap-1.5">
-                <span className={`font-outfit font-black text-4xl sm:text-5xl tracking-tight ${plan.isPopular ? 'text-stone-950' : 'text-emerald-400'}`}>
+                <span className={`font-playfair font-black text-4xl sm:text-5xl tracking-tight ${plan.isPopular ? 'text-stone-950' : 'text-emerald-400'}`}>
                   {plan.price}
                 </span>
                 <span className={`text-sm font-semibold ${plan.isPopular ? 'text-stone-600' : 'text-slate-300'}`}>
@@ -158,7 +158,7 @@ export function PricingGrid() {
                 href="https://ig.me/m/ridge_creative_"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all shadow-md active:scale-98 ${plan.btnStyle}`}
+                className={`w-full py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 text-sm font-bold transition-all shadow-md active:scale-98 cursor-pointer ${plan.btnStyle}`}
               >
                 <span>Claim Your Spot Now</span>
                 <ArrowRight className="w-4 h-4" />
