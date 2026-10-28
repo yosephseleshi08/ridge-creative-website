@@ -3,14 +3,38 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
-import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Clock, Loader2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Clock, Loader2, RotateCcw } from 'lucide-react';
 
 export function FreeMockupFunnel() {
   const [linkInput, setLinkInput] = useState('');
+  const [submittedLink, setSubmittedLink] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
+  const [countdown, setCountdown] = useState(10);
+
+  // Auto-reset feature: after 10 seconds, the success message automatically resets
+  useEffect(() => {
+    if (!submitted) {
+      setCountdown(10);
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          setSubmitted(false);
+          setLinkInput('');
+          return 10;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [submitted]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,6 +45,7 @@ export function FreeMockupFunnel() {
 
     setError('');
     setIsSubmitting(true);
+    const targetLink = linkInput.trim();
 
     try {
       const response = await fetch('https://formspree.io/f/xwllbkpo', {
@@ -30,14 +55,16 @@ export function FreeMockupFunnel() {
           'Accept': 'application/json',
         },
         body: JSON.stringify({
-          link: linkInput.trim(),
+          link: targetLink,
           source: 'Free Mockup Funnel - Ridge Creative Web Studio',
           submittedAt: new Date().toISOString(),
         }),
       });
 
       if (response.ok) {
+        setSubmittedLink(targetLink);
         setSubmitted(true);
+        setCountdown(10);
       } else {
         const data = await response.json().catch(() => null);
         if (data && data.errors && data.errors.length > 0) {
@@ -47,11 +74,16 @@ export function FreeMockupFunnel() {
         }
       }
     } catch (err) {
-      // Network fallback
       setError('Network error. Please check your connection or contact yoseph@ridgewebstudio.com.');
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleManualReset = () => {
+    setSubmitted(false);
+    setLinkInput('');
+    setCountdown(10);
   };
 
   return (
@@ -86,30 +118,37 @@ export function FreeMockupFunnel() {
 
         {/* Funnel Form or Success Card */}
         {submitted ? (
-          <div className="bg-white border-2 border-emerald-500/50 rounded-2xl p-8 sm:p-10 shadow-xl max-w-2xl mx-auto text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
-            <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
-              <CheckCircle2 className="w-8 h-8" />
+          <div className="bg-white border-2 border-emerald-500/50 rounded-3xl p-8 sm:p-12 shadow-2xl max-w-2xl mx-auto text-center space-y-6 animate-in fade-in zoom-in-95 duration-300">
+            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
+              <CheckCircle2 className="w-9 h-9" />
             </div>
             
             {/* Required exact success headline */}
-            <h3 className="font-playfair font-extrabold text-2xl sm:text-3xl text-stone-950">
-              Got it! I'll DM you within 48 hours.
-            </h3>
+            <div className="space-y-2">
+              <h3 className="font-playfair font-extrabold text-2xl sm:text-3xl text-stone-950">
+                Got it! I'll DM you within 48 hours.
+              </h3>
 
-            <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
-              Your link was received: <strong className="text-emerald-700 font-mono break-all">{linkInput}</strong>. Yoseph is preparing your restaurant mockup with 0% direct ordering.
-            </p>
+              <p className="text-stone-600 text-sm sm:text-base leading-relaxed max-w-xl mx-auto">
+                Your link was received: <strong className="text-emerald-700 font-mono break-all">{submittedLink}</strong>. Yoseph is preparing your restaurant mockup with 0% direct ordering.
+              </p>
+            </div>
 
-            <div className="pt-2">
+            {/* Prominent Action Button for Submitting Another Link */}
+            <div className="pt-2 flex flex-col items-center justify-center gap-3">
               <button
-                onClick={() => {
-                  setSubmitted(false);
-                  setLinkInput('');
-                }}
-                className="text-xs text-stone-500 hover:text-stone-800 underline font-medium cursor-pointer"
+                onClick={handleManualReset}
+                className="bg-[#10b981] hover:bg-[#0da371] active:scale-98 text-stone-950 font-bold text-sm sm:text-base px-8 py-3.5 rounded-xl flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
               >
-                Submit another restaurant link
+                <RotateCcw className="w-4 h-4" />
+                <span>Submit Another Restaurant Link</span>
               </button>
+
+              {/* Auto-reset indicator */}
+              <div className="text-xs text-stone-400 flex items-center gap-1.5 font-medium">
+                <Clock className="w-3.5 h-3.5 text-stone-400" />
+                <span>Auto-resetting form in {countdown}s</span>
+              </div>
             </div>
           </div>
         ) : (
