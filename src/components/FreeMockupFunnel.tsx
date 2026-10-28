@@ -4,21 +4,54 @@
  */
 
 import React, { useState } from 'react';
-import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Clock } from 'lucide-react';
+import { ArrowRight, Sparkles, CheckCircle2, ShieldCheck, Clock, Loader2 } from 'lucide-react';
 
 export function FreeMockupFunnel() {
   const [linkInput, setLinkInput] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!linkInput.trim()) {
       setError('Please paste your Instagram or Google Maps link.');
       return;
     }
+
     setError('');
-    setSubmitted(true);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('https://formspree.io/f/xwllbkpo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          link: linkInput.trim(),
+          source: 'Free Mockup Funnel - Ridge Creative Web Studio',
+          submittedAt: new Date().toISOString(),
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        const data = await response.json().catch(() => null);
+        if (data && data.errors && data.errors.length > 0) {
+          setError(data.errors.map((err: { message: string }) => err.message).join(', '));
+        } else {
+          setError('Submission failed. Please try again or DM @ridge_creative_ on Instagram.');
+        }
+      }
+    } catch (err) {
+      // Network fallback
+      setError('Network error. Please check your connection or contact yoseph@ridgewebstudio.com.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -58,12 +91,13 @@ export function FreeMockupFunnel() {
               <CheckCircle2 className="w-8 h-8" />
             </div>
             
-            <h3 className="font-playfair font-extrabold text-2xl text-stone-900">
-              Mockup Request Received!
+            {/* Required exact success headline */}
+            <h3 className="font-playfair font-extrabold text-2xl sm:text-3xl text-stone-950">
+              Got it! I'll DM you within 48 hours.
             </h3>
 
             <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
-              We received your link: <strong className="text-emerald-700 font-mono break-all">{linkInput}</strong>. Yoseph is reviewing your current menu and will deliver your custom interactive prototype within 48 hours.
+              Your link was received: <strong className="text-emerald-700 font-mono break-all">{linkInput}</strong>. Yoseph is preparing your restaurant mockup with 0% direct ordering.
             </p>
 
             <div className="pt-2">
@@ -80,10 +114,17 @@ export function FreeMockupFunnel() {
           </div>
         ) : (
           <div className="max-w-2xl mx-auto">
-            <form onSubmit={handleSubmit} className="relative">
+            <form 
+              action="https://formspree.io/f/xwllbkpo" 
+              method="POST"
+              onSubmit={handleSubmit} 
+              className="relative"
+            >
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 p-2 bg-white rounded-2xl shadow-xl border border-stone-200 focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10 transition-all">
                 <input
                   type="text"
+                  name="link"
+                  id="restaurant-link"
                   value={linkInput}
                   onChange={(e) => {
                     setLinkInput(e.target.value);
@@ -91,20 +132,32 @@ export function FreeMockupFunnel() {
                   }}
                   placeholder="Paste your Instagram or Google Maps link here..."
                   aria-label="Restaurant Instagram or Google Maps link"
-                  className="flex-1 px-4 py-3 sm:py-3.5 text-sm sm:text-base text-stone-900 placeholder:text-stone-400 bg-transparent focus:outline-none w-full"
+                  required
+                  disabled={isSubmitting}
+                  className="flex-1 px-4 py-3 sm:py-3.5 text-sm sm:text-base text-stone-900 placeholder:text-stone-400 bg-transparent focus:outline-none w-full disabled:opacity-60"
                 />
 
                 <button
                   type="submit"
-                  className="bg-[#10b981] hover:bg-[#0da371] active:scale-98 text-stone-950 font-bold text-sm sm:text-base px-6 py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all shrink-0 cursor-pointer"
+                  disabled={isSubmitting}
+                  className="bg-[#10b981] hover:bg-[#0da371] active:scale-98 text-stone-950 font-bold text-sm sm:text-base px-6 py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-md transition-all shrink-0 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                 >
-                  <span>Get My Free Mockup</span>
-                  <ArrowRight className="w-4 h-4" />
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Get My Free Mockup</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  )}
                 </button>
               </div>
 
               {error && (
-                <p className="text-red-600 text-xs text-left mt-2 pl-4 font-medium">
+                <p className="text-red-600 text-xs text-left mt-2.5 pl-4 font-medium">
                   {error}
                 </p>
               )}

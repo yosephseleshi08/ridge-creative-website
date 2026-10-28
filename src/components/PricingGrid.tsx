@@ -164,7 +164,21 @@ export function PricingGrid() {
                 <ArrowRight className="w-4 h-4" />
               </a>
 
-              <p className={`text-[11px] text-center mt-2.5 ${plan.isPopular ? 'text-stone-500' : 'text-slate-500'}`}>
+              {/* Email Fallback CTA */}
+              <div className="text-center mt-3">
+                <a
+                  href="mailto:yoseph@ridgewebstudio.com"
+                  className={`text-xs transition-colors underline-offset-4 hover:underline ${
+                    plan.isPopular 
+                      ? 'text-stone-600 hover:text-emerald-700 font-medium' 
+                      : 'text-slate-400 hover:text-emerald-400'
+                  }`}
+                >
+                  Or email me: yoseph@ridgewebstudio.com
+                </a>
+              </div>
+
+              <p className={`text-[11px] text-center mt-1.5 ${plan.isPopular ? 'text-stone-400' : 'text-slate-500'}`}>
                 Instant DM to Yoseph · Quick 5-min onboarding
               </p>
             </div>
