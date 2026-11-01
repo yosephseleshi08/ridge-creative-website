@@ -10,18 +10,6 @@ interface HeaderProps {
 }
 
 export function Header({ onClaimOffer }: HeaderProps) {
-  const handleScrollToPricing = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (onClaimOffer) {
-      onClaimOffer();
-    } else {
-      const el = document.getElementById('pricing');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
-
   return (
     <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-[#080c14]/90 border-b border-white/[0.06] transition-all">
       <div className="max-w-6xl mx-auto px-6 h-20 sm:h-22 flex items-center justify-between">
@@ -52,16 +40,7 @@ export function Header({ onClaimOffer }: HeaderProps) {
           </div>
         </a>
 
-        {/* Claim Offer Action: Smoothly SCROLL DOWN to the pricing section */}
-        <div className="flex items-center gap-3">
-          <a
-            href="#pricing"
-            onClick={handleScrollToPricing}
-            className="bg-[#10b981] hover:bg-[#0da371] text-[#080c14] font-bold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-lg transition-all glow-emerald-subtle whitespace-nowrap cursor-pointer active:scale-95"
-          >
-            Claim Offer
-          </a>
-        </div>
+        {/* Header right side kept minimal without the Claim Offer button */}
       </div>
     </header>
   );

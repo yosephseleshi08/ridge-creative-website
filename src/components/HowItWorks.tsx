@@ -29,7 +29,7 @@ export function HowItWorks() {
   ];
 
   return (
-    <section className="py-16 sm:py-24 border-t border-slate-800/80 font-dmsans">
+    <section id="how-it-works" className="py-16 sm:py-24 border-t border-slate-800/80 font-dmsans scroll-mt-20">
       <div className="max-w-6xl mx-auto px-6 text-center">
         
         {/* Kicker */}

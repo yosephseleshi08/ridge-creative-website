@@ -22,7 +22,7 @@ export function ProblemSolutionSection() {
   ];
 
   return (
-    <section className="py-16 sm:py-24 border-t border-slate-800/80 font-dmsans">
+    <section id="the-math" className="py-16 sm:py-24 border-t border-slate-800/80 font-dmsans scroll-mt-20">
       <div className="max-w-6xl mx-auto px-6">
         
         {/* Kicker Tag */}
@@ -44,7 +44,7 @@ export function ProblemSolutionSection() {
         </div>
 
         {/* 2-Column Side-by-Side: The Outdated Problem vs The Ridge Creative Solution */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Card A: The Outdated Status Quo (Red X bullets) */}
           <div className="bg-[#0e121b] border border-red-500/20 rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
@@ -106,61 +106,6 @@ export function ProblemSolutionSection() {
             </div>
           </div>
 
-        </div>
-
-        {/* Visual Fee Comparison Card */}
-        <div className="bg-[#0b121e] border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl max-w-3xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-            <span className="text-xs sm:text-sm font-semibold text-slate-400">
-              Third-Party Take on a Typical $50 Ticket:
-            </span>
-            <span className="text-xs sm:text-sm font-semibold text-[#f59e0b]">
-              30% DoorDash / UberEats cut
-            </span>
-          </div>
-
-          {/* Progress Bar (70% emerald / 30% amber) */}
-          <div 
-            className="w-full h-3 rounded-full bg-slate-800/80 flex overflow-hidden p-0.5 gap-0.5 my-3"
-            role="img"
-            aria-label="Bar chart showing $35 kept and $15 lost in fees from a $50 order"
-          >
-            <div 
-              className="bg-[#10b981] h-full rounded-l-full shadow-sm transition-all duration-1000" 
-              style={{ width: '70%' }}
-            />
-            <div 
-              className="bg-[#f59e0b] h-full rounded-r-full shadow-sm transition-all duration-1000" 
-              style={{ width: '30%' }}
-            />
-          </div>
-
-          {/* Numerical comparison figures */}
-          <div className="flex items-center justify-between pt-2">
-            <div>
-              <div className="font-playfair font-extrabold text-3xl sm:text-4xl text-white tracking-tight tabular-nums">
-                $35
-              </div>
-              <div className="text-xs text-slate-400 font-medium mt-1">
-                You keep (Third-party app)
-              </div>
-            </div>
-
-            <div className="text-right">
-              <div className="font-playfair font-extrabold text-3xl sm:text-4xl text-[#f59e0b] tracking-tight tabular-nums">
-                -$15
-              </div>
-              <div className="text-xs text-slate-400 font-medium mt-1">
-                Gone in fees per ticket
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-5 pt-4 border-t border-slate-800/80 text-center">
-            <p className="text-xs sm:text-sm text-emerald-400 font-medium">
-              💡 With Ridge Creative Direct Ordering: You keep the full <strong className="text-white">$50</strong> on every single order.
-            </p>
-          </div>
         </div>
 
       </div>

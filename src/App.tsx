@@ -13,6 +13,7 @@ import { FreeMockupFunnel } from './components/FreeMockupFunnel';
 import { PricingGrid } from './components/PricingGrid';
 import { SocialProof } from './components/SocialProof';
 import { Footer } from './components/Footer';
+import { InteractiveSalesGuide } from './components/InteractiveSalesGuide';
 
 export default function App() {
   const scrollToPricing = () => {
@@ -23,7 +24,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080c14] text-slate-100 selection:bg-emerald-500 selection:text-slate-950 flex flex-col font-dmsans">
+    <div className="min-h-screen bg-[#080c14] text-slate-100 selection:bg-emerald-500 selection:text-slate-950 flex flex-col font-dmsans relative">
       {/* Sticky Navigation Header with Claim Offer -> #pricing */}
       <Header onClaimOffer={scrollToPricing} />
 
@@ -38,7 +39,7 @@ export default function App() {
           <Hero onClaimOffer={scrollToPricing} />
         </motion.div>
 
-        {/* Problem / Solution Section (4 Red X's vs 4 Green Checks + DoorDash Fee Chart) */}
+        {/* Problem / Solution Section (The Math & Status Quo) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -88,6 +89,9 @@ export default function App() {
           <SocialProof />
         </motion.div>
       </main>
+
+      {/* Floating Interactive Sales Guide at Bottom-Left */}
+      <InteractiveSalesGuide />
 
       {/* Footer */}
       <Footer />
