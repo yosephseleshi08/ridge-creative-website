@@ -129,7 +129,7 @@ export function InteractivePhoneMockup() {
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
               <span className="font-playfair font-bold text-xs text-stone-900 tracking-tight">
-                THE LOCAL TABLE
+                YOUR RESTAURANT
               </span>
             </div>
             <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">

@@ -119,7 +119,7 @@ export function Hero({ onClaimOffer }: HeroProps) {
 
             {/* Main Headline */}
             <h1 className="font-playfair text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.08] text-balance">
-              Your Restaurant is Losing 30% to DoorDash.{' '}
+              Your Restaurant is Losing 30% to Delivery Apps.{' '}
               <span className="text-[#10b981] drop-shadow-[0_0_25px_rgba(16,185,129,0.3)] italic">
                 Stop the Bleed.
               </span>
