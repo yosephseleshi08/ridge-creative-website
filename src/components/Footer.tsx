@@ -15,7 +15,7 @@ export function Footer() {
         <div className="flex items-center gap-1.5 font-medium">
           <span>Built with</span>
           <span className="text-red-500 text-sm" role="img" aria-label="love">❤️</span>
-          <span>in Cleveland, Ohio.</span>
+          <span>for independent restaurants worldwide.</span>
         </div>
       </div>
     </footer>

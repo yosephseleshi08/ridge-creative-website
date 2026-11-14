@@ -127,7 +127,7 @@ export function Hero({ onClaimOffer }: HeroProps) {
 
             {/* Subheadline */}
             <p className="text-slate-300/90 text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-xl font-dmsans">
-              I build commission-free direct ordering websites for local restaurants. Live in 48 hours. $0 setup.
+              I build commission-free direct ordering websites for restaurants worldwide. Live in 48 hours. $0 setup.
             </p>
 
             {/* Primary Dominant Inline Form (Replaces redundant hero CTA button) */}
@@ -225,7 +225,7 @@ export function Hero({ onClaimOffer }: HeroProps) {
             {/* Trust Proof */}
             <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-400 pt-1 font-dmsans">
               <CheckCircle2 className="w-4 h-4 text-[#10b981] shrink-0" />
-              <span>Trusted by 7+ local restaurants.</span>
+              <span>Trusted by 7+ independent restaurants.</span>
             </div>
           </div>
 

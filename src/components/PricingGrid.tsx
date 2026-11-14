@@ -17,7 +17,7 @@ export function PricingGrid() {
       price: '$0',
       period: 'Setup + $99/mo',
       strikethrough: 'Normally $499 Setup',
-      desc: 'Ideal for neighborhood restaurants wanting to stop third-party fee gouging immediately.',
+      desc: 'Ideal for independent restaurants wanting to stop third-party fee gouging immediately.',
       features: [
         'Live in 48 hours guaranteed',
         'Interactive mobile-first digital menu',
@@ -44,7 +44,7 @@ export function PricingGrid() {
         'Everything in Founding Partner',
         'Commission-free direct ordering checkout',
         'Direct table reservation booking widget',
-        'Local Google SEO & Maps optimization',
+        'Google SEO & Maps optimization',
         'Customer email & phone data capture',
         'Direct Stripe / Square payout integration',
         'Priority updates within 24 hours'

@@ -10,7 +10,7 @@ export function ProblemSolutionSection() {
   const problems = [
     { title: 'Pinch-to-zoom PDFs', desc: 'Frustrated customers bounce when menus are unreadable clunky PDF downloads.' },
     { title: '30% Commission Gouging', desc: 'DoorDash & UberEats siphon away almost a third of every single ticket.' },
-    { title: 'Missing Tap-to-Call & Maps', desc: 'Hungry locals can’t instantly ring your kitchen or navigate to your front door.' },
+    { title: 'Missing Tap-to-Call & Maps', desc: 'Hungry diners can’t instantly ring your kitchen or navigate to your front door.' },
     { title: 'Outdated Prices & Items', desc: 'Old prices and sold-out specials left unedited for months because webmasters vanish.' },
   ];
 
